@@ -1,0 +1,37 @@
+﻿@page
+@model RecipeManager.Pages.RecipesModel
+@{
+    ViewData["Title"] = "Recipe Manager";
+}
+
+<!-- Main page heading -->
+<h1>Recipe Manager</h1>
+
+<!-- Form that submits recipe selection via POST method -->
+<form method="post">
+    <!-- Dropdown list that binds to the SelectedRecipeId property and populates options from Model.RecipeList -->
+    <select asp-for="SelectedRecipeId" asp-items="Model.RecipeList" class="form-control">
+        <!-- Default option when no recipe is selected -->
+        <option value="">Select a Recipe</option>
+    </select>
+    <!-- Submit button to send the form and show the selected recipe details -->
+    <button type="submit" class="btn btn-primary mt-2">Show Recipe</button>
+</form>
+
+<!-- Conditional section that only displays when a recipe is selected -->
+@if (Model.SelectedRecipe != null)
+{
+    <!-- Container for recipe details with top margin spacing -->
+    <div class="mt-4">
+        <!-- Display the selected recipe's name as a heading -->
+        <h2>@Model.SelectedRecipe.Name</h2>
+        <!-- Display the recipe's cuisine type -->
+        <p><strong>Cuisine:</strong> @Model.SelectedRecipe.Cuisine</p>
+        <!-- Display the recipe's ingredients -->
+        <p><strong>Ingredients:</strong> @Model.SelectedRecipe.Ingredients</p>
+        <!-- Display the recipe's instructions -->
+        <p><strong>Instructions:</strong> @Model.SelectedRecipe.Instructions</p>
+        <!-- Display the recipe's image with a maximum width and alt text for accessibility -->
+        <img src="/images/@Model.SelectedRecipe.ImageFileName" alt="@Model.SelectedRecipe.Name" style="max-width: 300px;" />
+    </div>
+}
